@@ -1,18 +1,42 @@
+#!/bin/bash
+# =====================
+# Setup branch1
+# =====================
 git checkout -b branch1 main
-git rm -r dir1/dir2 dir3/bar_copy
-git rm LICENSE
-git rm README.md
+
+# Move foo from dir1/dir2 to dir1/
+mv dir1/dir2/foo dir1/foo
+
+# Remove dir2 if empty
+rmdir dir1/dir2
+
+# Remove bar_copy from dir3
+rm dir3/bar_copy
+
+# Create newfile1
 echo "This is newfile1" > newfile1
-git add newfile1 LICENSE README.md
+
+# Stage and commit for branch1
+git add .
 git commit -m "Setup branch1 structure"
+
+# =====================
+# Setup branch2
+# =====================
 git checkout main
-
 git checkout -b branch2 main
-git mv dir1/dir2/foo dir1/dir2/foo_modified
 
-e
+# Rename foo to foo_modified inside dir1/dir2
+mv dir1/dir2/foo dir1/dir2/foo_modified
+
+# Create dir3 inside dir1 and add newfile2 there
 mkdir -p dir1/dir3
 echo "This is newfile2" > dir1/dir3/newfile2
-git rm dir3/bar dir3/bar_copy
-git add dir1/dir2/foo_modified dir1/dir3/newfile2 LICENSE README.md
+
+# Remove dir3 folder from root
+rm -r dir3
+
+# Stage and commit for branch2
+git add .
 git commit -m "Setup branch2 structure"
+
